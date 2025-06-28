@@ -6,9 +6,23 @@ public class PackManager : MonoBehaviour
 {
     public CardManager cardManager;
     public InventoryUI inv;
+    private void Start()
+    {
+        inv.DisplayInventory(cardManager.inventory);
+    }
+
+    public void AddPack(PackSO pack)
+    {
+        cardManager.inventory.AddPack(pack);
+        inv.DisplayInventory(cardManager.inventory);
+    }
 
     public void OpenPack(PackSO pack)
     {
+        if(cardManager.inventory.GetPackCount(pack) == 0)
+        {
+            return;
+        }
         // Common
         List<CardSO> commonCards = pack.cards.Where(card => card.rarity == Rarity.Common).ToList();
 
@@ -53,6 +67,7 @@ public class PackManager : MonoBehaviour
             }
         }
         inv.DisplayInventory(cardManager.inventory);
+        cardManager.inventory.RemovePack(pack);
     }
 
     // Fisher–Yates shuffle
