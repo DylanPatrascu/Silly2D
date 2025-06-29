@@ -9,18 +9,16 @@ public class CardInventoryUI : MonoBehaviour
     public TMP_Text rarityText;
     public Image questionMarkSprite;
     public Button cardButton;
-    public CardUIController cardUIController;
 
-    public void Setup(CardSO card, int count, bool discovered)
+    public void Setup(CardSO card, int count, bool discovered, CardUIController cardUI)
     {
-        cardUIController = GetComponentInParent<CardUIController>();
         if (discovered)
         {
             icon.sprite = card.sprite;
             icon.color = Color.black;
             rarityText.text = "<sprite=" + ((int)card.rarity) + ">";
             quantityText.text = "x" + count;
-            cardButton.onClick.AddListener(delegate { cardUIController.DisplayCard(card); });
+            cardButton.onClick.AddListener(delegate { cardUI.DisplayCard(card); });
         }
         else
         {

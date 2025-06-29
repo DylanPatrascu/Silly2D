@@ -8,18 +8,14 @@ public class PackInventoryUI : MonoBehaviour
     public TMP_Text quantityText;
     public Image questionMarkSprite;
     public Button packButton;
-    public PackUIController packUIController;
-
-
-    public void Setup(PackSO pack, int count, bool discovered)
+    public void Setup(PackSO pack, int count, bool discovered, PackUIController packUI)
     {
-        packUIController = GetComponentInParent<PackUIController>();
         if (discovered)
         {
             icon.sprite = pack.sprite;
             icon.color = Color.black;
             quantityText.text = "x" + count;
-            packButton.onClick.AddListener(delegate {packUIController.DisplayPack(pack); });
+            packButton.onClick.AddListener(delegate { packUI.DisplayPack(pack); });
         }
         else
         {

@@ -10,8 +10,13 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private CardManager cardManager;
     private Inventory inv;
 
+    private PackUIController packUI;
+    private CardUIController cardUI;
+
     private void Awake()
     {
+        packUI = GetComponent<PackUIController>();
+        cardUI = GetComponent<CardUIController>();
         inv = cardManager.GetInventory();
         if(inv == null)
         {
@@ -35,7 +40,7 @@ public class InventoryUI : MonoBehaviour
 
             GameObject slotGO = Instantiate(cardSlotPrefab, panel.transform);
             CardInventoryUI cardSlotUI = slotGO.GetComponent<CardInventoryUI>();
-            cardSlotUI.Setup(card, count, discovered);
+            cardSlotUI.Setup(card, count, discovered, cardUI);
         }
 
         //Packs
@@ -51,7 +56,7 @@ public class InventoryUI : MonoBehaviour
 
             GameObject slotGO = Instantiate(packSlotPrefab, packPanel.transform);
             PackInventoryUI packSlotUI = slotGO.GetComponent<PackInventoryUI>();
-            packSlotUI.Setup(pack, count, discovered);
+            packSlotUI.Setup(pack, count, discovered, packUI);
         }
     }
 }
