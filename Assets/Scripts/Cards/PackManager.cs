@@ -6,15 +6,11 @@ public class PackManager : MonoBehaviour
 {
     public CardManager cardManager;
     public InventoryUI inv;
-    private void Start()
-    {
-        inv.DisplayInventory(cardManager.inventory);
-    }
 
     public void AddPack(PackSO pack)
     {
-        cardManager.inventory.AddPack(pack);
-        inv.DisplayInventory(cardManager.inventory);
+        cardManager.GetInventory().AddPack(pack);
+        inv.DisplayInventory();
     }
 
     public void OpenPack(PackSO pack)
@@ -30,7 +26,7 @@ public class PackManager : MonoBehaviour
 
         for (int i = 0; i < Mathf.Min(pack.numCommon, commonCards.Count); i++)
         {
-            cardManager.inventory.AddCard(commonCards[i]);
+            cardManager.GetInventory().AddCard(commonCards[i]);
         }
 
         // Uncommon
@@ -40,7 +36,7 @@ public class PackManager : MonoBehaviour
 
         for (int i = 0; i < Mathf.Min(pack.numUncommon, uncommonCards.Count); i++)
         {
-            cardManager.inventory.AddCard(uncommonCards[i]);
+            cardManager.GetInventory().AddCard(uncommonCards[i]);
         }
 
         // Rare/Mythic
@@ -53,7 +49,7 @@ public class PackManager : MonoBehaviour
 
                 Shuffle(mythicCards);
                 
-                cardManager.inventory.AddCard(mythicCards[i]);
+                cardManager.GetInventory().AddCard(mythicCards[i]);
                 
             }
             else
@@ -63,11 +59,11 @@ public class PackManager : MonoBehaviour
 
                 Shuffle(rareCards);
 
-                cardManager.inventory.AddCard(rareCards[i]);
+                cardManager.GetInventory().AddCard(rareCards[i]);
             }
         }
-        inv.DisplayInventory(cardManager.inventory);
-        cardManager.inventory.RemovePack(pack);
+        inv.DisplayInventory();
+        cardManager.GetInventory().RemovePack(pack);
     }
 
     // Fisher–Yates shuffle

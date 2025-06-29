@@ -7,8 +7,20 @@ public class InventoryUI : MonoBehaviour
 
     public GameObject packSlotPrefab;
     public GameObject packPanel;
+    [SerializeField] private CardManager cardManager;
+    private Inventory inv;
 
-    public void DisplayInventory(Inventory inventory)
+    private void Awake()
+    {
+        inv = cardManager.GetInventory();
+        if(inv == null)
+        {
+            Debug.Log("inventory is null");
+        }
+        DisplayInventory();
+    }
+
+    public void DisplayInventory()
     {
         //Cards
         foreach (Transform child in panel.transform)
@@ -16,15 +28,10 @@ public class InventoryUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (CardSO card in inventory.GetAllCards())
+        foreach (CardSO card in inv.GetAllCards())
         {
-            Debug.Log($"Card: {card.title}, Count: {inventory.GetCardCount(card)}, Discovered: {inventory.GetCardDiscovered(card)}");
-        }
-
-        foreach (CardSO card in inventory.GetAllCards())
-        {
-            int count = inventory.GetCardCount(card);
-            bool discovered = inventory.GetCardDiscovered(card);
+            int count = inv.GetCardCount(card);
+            bool discovered = inv.GetCardDiscovered(card);
 
             GameObject slotGO = Instantiate(cardSlotPrefab, panel.transform);
             CardInventoryUI cardSlotUI = slotGO.GetComponent<CardInventoryUI>();
@@ -37,10 +44,10 @@ public class InventoryUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (PackSO pack in inventory.GetAllPacks())
+        foreach (PackSO pack in inv.GetAllPacks())
         {
-            int count = inventory.GetPackCount(pack);
-            bool discovered = inventory.GetPackDiscovered(pack);
+            int count = inv.GetPackCount(pack);
+            bool discovered = inv.GetPackDiscovered(pack);
 
             GameObject slotGO = Instantiate(packSlotPrefab, packPanel.transform);
             PackInventoryUI packSlotUI = slotGO.GetComponent<PackInventoryUI>();

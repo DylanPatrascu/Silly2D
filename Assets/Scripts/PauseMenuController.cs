@@ -5,6 +5,7 @@ public class PauseMenuController : MonoBehaviour
     public GameObject pauseCanvas;
     public GameObject cardDisplay;
     private bool isPaused;
+    [SerializeField] private InventoryUI inventoryUI;
 
     private void Start()
     {
@@ -13,6 +14,7 @@ public class PauseMenuController : MonoBehaviour
 
     public void PauseGame(bool paused)
     {
+        inventoryUI.DisplayInventory();
         pauseCanvas.SetActive(paused);
         cardDisplay.SetActive(false);
         Cursor.visible = paused;

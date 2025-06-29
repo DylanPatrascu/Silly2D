@@ -7,7 +7,7 @@ public class CardManager : MonoBehaviour
     public Inventory inventory;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         inventory = new Inventory(cardDatabase, packDatabase);
     }
@@ -16,5 +16,10 @@ public class CardManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public Inventory GetInventory()
+    {
+        return inventory;
     }
 }
