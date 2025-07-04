@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Trident
   m_EditorClassIdentifier: 
   title: Trident
-  description: 
+  description: deals 15 damage
   flavour: 
   sprite: {fileID: 21300000, guid: df0ea2a446a1702479af575f2c60865d, type: 3}
   rarity: 3

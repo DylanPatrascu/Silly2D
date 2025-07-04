@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boots
   m_EditorClassIdentifier: 
   title: Boots
-  description: 
+  description: grants 2 armor and quick cast next turn
   flavour: 
   sprite: {fileID: 21300000, guid: 8cdc762d0f39a1c41a6bd22c665f3c96, type: 3}
   rarity: 0

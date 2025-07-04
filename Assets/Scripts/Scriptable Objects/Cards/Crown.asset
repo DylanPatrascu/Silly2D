@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Crown
   m_EditorClassIdentifier: 
   title: Crown
-  description: 
+  description: grants 3 armor and heals 10 health
   flavour: 
   sprite: {fileID: 21300000, guid: e57ae62b24f3af748a5a6783f1fee684, type: 3}
   rarity: 3
