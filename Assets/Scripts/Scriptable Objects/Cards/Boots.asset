@@ -17,3 +17,6 @@ MonoBehaviour:
   flavour: 
   sprite: {fileID: 21300000, guid: 8cdc762d0f39a1c41a6bd22c665f3c96, type: 3}
   rarity: 0
+  quickCast: 0
+  effects:
+  - {fileID: 11400000, guid: 6cf077dc8e6456a478a48f92a37b6782, type: 2}

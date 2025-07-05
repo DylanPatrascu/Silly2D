@@ -19,6 +19,7 @@ public class BattleUI : MonoBehaviour
         menu.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        DisplayHands();
     }
 
     public void DisplayHands()

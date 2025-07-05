@@ -746,13 +746,15 @@ MonoBehaviour:
   playerName: Dylan
   health: 100
   armor: 0
-  deck: []
-  hand:
+  deck:
   - {fileID: 11400000, guid: e8eed173c8aabb346aecb054cb5a532f, type: 2}
-  - {fileID: 11400000, guid: e8eed173c8aabb346aecb054cb5a532f, type: 2}
-  - {fileID: 11400000, guid: e8eed173c8aabb346aecb054cb5a532f, type: 2}
-  - {fileID: 11400000, guid: e8eed173c8aabb346aecb054cb5a532f, type: 2}
-  - {fileID: 11400000, guid: e8eed173c8aabb346aecb054cb5a532f, type: 2}
+  - {fileID: 11400000, guid: 673ff539531c6f74d9a9be31711b2603, type: 2}
+  - {fileID: 11400000, guid: d0b82f954ce059946a91150c69067676, type: 2}
+  - {fileID: 11400000, guid: 7b30e71f96c8ec54dac6be2f0acc459e, type: 2}
+  - {fileID: 11400000, guid: fa64662bc2401924d9066e0972d46ba5, type: 2}
+  - {fileID: 11400000, guid: fa64662bc2401924d9066e0972d46ba5, type: 2}
+  - {fileID: 11400000, guid: fa64662bc2401924d9066e0972d46ba5, type: 2}
+  hand: []
   graveyard: []
 --- !u!114 &263835158 stripped
 MonoBehaviour:
@@ -2698,6 +2700,8 @@ MonoBehaviour:
   playerCard: {fileID: 0}
   enemyCard: {fileID: 0}
   battleUI: {fileID: 1080339284}
+  turnCounter: 0
+  battleState: 0
 --- !u!4 &1007511314
 Transform:
   m_ObjectHideFlags: 0
@@ -6030,9 +6034,41 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 2424137503437511992, guid: 6b080ce2347b8c540866146b35522579, type: 3}
-      propertyPath: hand.Array.size
-      value: 5
+      propertyPath: deck.Array.size
+      value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 2424137503437511992, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: hand.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424137503437511992, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: 'deck.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e8eed173c8aabb346aecb054cb5a532f, type: 2}
+    - target: {fileID: 2424137503437511992, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: 'deck.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 673ff539531c6f74d9a9be31711b2603, type: 2}
+    - target: {fileID: 2424137503437511992, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: 'deck.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d0b82f954ce059946a91150c69067676, type: 2}
+    - target: {fileID: 2424137503437511992, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: 'deck.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7b30e71f96c8ec54dac6be2f0acc459e, type: 2}
+    - target: {fileID: 2424137503437511992, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: 'deck.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: fa64662bc2401924d9066e0972d46ba5, type: 2}
+    - target: {fileID: 2424137503437511992, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: 'deck.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: fa64662bc2401924d9066e0972d46ba5, type: 2}
+    - target: {fileID: 2424137503437511992, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: 'deck.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: fa64662bc2401924d9066e0972d46ba5, type: 2}
     - target: {fileID: 2424137503437511992, guid: 6b080ce2347b8c540866146b35522579, type: 3}
       propertyPath: 'hand.Array.data[0]'
       value: 
