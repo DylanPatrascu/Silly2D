@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Shield
   m_EditorClassIdentifier: 
   title: Shield
-  description: grants 5 armor
+  description: Grants 5 armor
   flavour: 
   sprite: {fileID: 21300000, guid: 8c6b9efd67f99df47bd865aeb5db7b6f, type: 3}
   rarity: 2
+  quickCast: 0
+  effects:
+  - {fileID: 11400000, guid: 6878f7d4bec919d4d95e8c757a2fb657, type: 2}

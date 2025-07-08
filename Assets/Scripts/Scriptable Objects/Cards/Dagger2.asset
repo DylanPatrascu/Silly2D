@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Dagger2
   m_EditorClassIdentifier: 
   title: Dagger II
-  description: deals 7 damage and poison II for 3 turns
+  description: Deals 7 damage
   flavour: 
   sprite: {fileID: 21300000, guid: f715e02ebdcdd4f43846a10686964d25, type: 3}
   rarity: 2
+  quickCast: 0
+  effects:
+  - {fileID: 11400000, guid: 86b87db249876e743a3b4a74c20780f5, type: 2}

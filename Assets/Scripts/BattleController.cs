@@ -44,7 +44,9 @@ public class BattleController : MonoBehaviour
     public void StartBattle(PlayerStats p, PlayerStats e)
     {
         player = p;
+        p.StartBattle();
         enemy = e;
+        e.StartBattle();
         for(int i = 0; i < 4; i++)
         {
             player.DrawCard();

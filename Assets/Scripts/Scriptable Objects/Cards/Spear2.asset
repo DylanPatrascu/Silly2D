@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Spear2
   m_EditorClassIdentifier: 
   title: Spear II
-  description: quick cast, deals 7 damage
+  description: Quick cast, piercing, deals 7 damage
   flavour: 
   sprite: {fileID: 21300000, guid: ff2ad6d0155dded4e8cfb2854e57db21, type: 3}
   rarity: 2
+  quickCast: 1
+  effects:
+  - {fileID: 11400000, guid: a5bcd5ef45a445b468bbd58dab6aca34, type: 2}

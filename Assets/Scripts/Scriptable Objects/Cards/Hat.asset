@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Hat
   m_EditorClassIdentifier: 
   title: Hat
-  description: grants 1 armor and 3 attack next turn
+  description: Grants 1 armor
   flavour: 
   sprite: {fileID: 21300000, guid: 87361eb0d3861444b845d367877cb89d, type: 3}
   rarity: 2
+  quickCast: 0
+  effects:
+  - {fileID: 11400000, guid: a1a5ff155ed845f4880625ffc994df6d, type: 2}

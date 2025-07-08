@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Dagger1
   m_EditorClassIdentifier: 
   title: Dagger I
-  description: deals 4 damage and poison I for 3 turns
+  description: Deals 4 Damage
   flavour: 
   sprite: {fileID: 21300000, guid: 960cdc24c1b2be74cb52354cb24b6c1a, type: 3}
   rarity: 1
+  quickCast: 0
+  effects:
+  - {fileID: 11400000, guid: 9aec53f6e5fbfed478c339541be28a01, type: 2}

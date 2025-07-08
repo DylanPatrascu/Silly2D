@@ -17,5 +17,6 @@ MonoBehaviour:
   flavour: It appears rather chunky...
   sprite: {fileID: 21300000, guid: 8252a9ac9ec582847af05bf39de0e74e, type: 3}
   rarity: 0
+  quickCast: 0
   effects:
-  - {fileID: 11400000, guid: 6cf077dc8e6456a478a48f92a37b6782, type: 2}
+  - {fileID: 11400000, guid: 11791f8f8d33b5a47a947393100bc28b, type: 2}

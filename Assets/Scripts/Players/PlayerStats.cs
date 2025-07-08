@@ -5,13 +5,22 @@ public class PlayerStats : MonoBehaviour
 {
     public string playerName;
     public int health = 100;
+    public int maxHealth = 100;
     public int armor = 0;
 
     private bool playedCard = false;
 
-    public List<CardSO> deck = new List<CardSO>();
+    public DeckSO deck;
     public List<CardSO> hand = new List<CardSO>();
     public List<CardSO> graveyard = new List<CardSO>();
+    public List<CardSO> runtimeDeck = new List<CardSO>();
+
+    public void StartBattle()
+    {
+        runtimeDeck = new List<CardSO>(deck.deckList);
+        Shuffle(runtimeDeck);
+    }
+
 
     public void TakeDamage(int amount, bool piercing)
     {
@@ -23,6 +32,10 @@ public class PlayerStats : MonoBehaviour
     public void Heal(int amount)
     {
         health += amount;
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
         Debug.Log($"{playerName} healed for {amount}. Health: {health}");
     }
 
@@ -34,13 +47,13 @@ public class PlayerStats : MonoBehaviour
 
     public void DrawCard()
     {
-        if (deck.Count == 0)
+        if (runtimeDeck.Count == 0)
         {
             Debug.Log($"{playerName}'s deck is empty");
             return;
         }
-        CardSO cardDrawn = deck[0];
-        deck.RemoveAt(0);
+        CardSO cardDrawn = runtimeDeck[0];
+        runtimeDeck.RemoveAt(0);
         hand.Add(cardDrawn);
         Debug.Log($"{playerName} drew {cardDrawn.title}");
     }
@@ -79,6 +92,18 @@ public class PlayerStats : MonoBehaviour
     public IEnumerable<CardSO> GetHand()
     {
         return hand;
+    }
+
+    // Fisher–Yates shuffle
+    private void Shuffle<T>(List<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            (list[i], list[j]) = (list[j], list[i]);
+        }
+        Debug.Log($"{playerName} shuffled their deck.");
+
     }
 
 

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Chestplate1
   m_EditorClassIdentifier: 
   title: Chest I
-  description: grants 4 armor
+  description: Grants 4 armor
   flavour: 
   sprite: {fileID: 21300000, guid: 020c90d2fe58d8c4c9f95305ea0f4304, type: 3}
   rarity: 1
+  quickCast: 0
+  effects:
+  - {fileID: 11400000, guid: c82567fe59e60c945b63afb138f0ed69, type: 2}
