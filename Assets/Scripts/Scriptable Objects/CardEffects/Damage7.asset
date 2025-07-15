@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deae83db1477d40408e77b4975662a0b, type: 3}
   m_Name: Damage7
   m_EditorClassIdentifier: 
-  amount: 7
+  amount: 35
   piercing: 0

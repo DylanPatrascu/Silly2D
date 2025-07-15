@@ -93,6 +93,33 @@ public class PlayerStats : MonoBehaviour
     {
         return hand;
     }
+    public int GetGraveyardSize()
+    {
+        return graveyard.Count;
+    }
+    public int GetHandSize()
+    {
+        return hand.Count;
+    }
+    public string GetPlayerName()
+    {
+        return playerName;
+    }
+
+    public int GetHealth()
+    {
+        return health;
+    }
+
+    public int GetArmor()
+    {
+        return armor;
+    }
+
+    public int GetDeckSize()
+    {
+        return runtimeDeck.Count;
+    }
 
     // Fisher–Yates shuffle
     private void Shuffle<T>(List<T> list)

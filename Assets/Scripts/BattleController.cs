@@ -37,10 +37,8 @@ public class BattleController : MonoBehaviour
         {
             DrawStep();
         }
-
-
-
     }
+
     public void StartBattle(PlayerStats p, PlayerStats e)
     {
         player = p;
@@ -62,7 +60,7 @@ public class BattleController : MonoBehaviour
         player.DrawCard();
         enemy.DrawCard();
         battleUI.DisplayHands();
-        
+        battleUI.DisplayStats();
         battleState = BattleState.Combat;
     }
     public void Combat()
@@ -125,6 +123,7 @@ public class BattleController : MonoBehaviour
         }
 
         battleUI.DisplayHands();
+        battleUI.DisplayStats();
         battleState = BattleState.EndStep;
         playerCard = null;
         enemyCard = null;
