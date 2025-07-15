@@ -38,6 +38,13 @@ public class BattleUI : MonoBehaviour
         DisplayStats();
     }
 
+    public void EndBattle()
+    {
+        menu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     public void DisplayHands()
     {
         //Player

@@ -21,6 +21,13 @@ public class PlayerStats : MonoBehaviour
         Shuffle(runtimeDeck);
     }
 
+    public void EndBattle()
+    {
+        hand = null;
+        graveyard = null;
+        runtimeDeck = null;
+    }
+
 
     public void TakeDamage(int amount, bool piercing)
     {

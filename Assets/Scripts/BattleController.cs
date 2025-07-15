@@ -5,7 +5,8 @@ public enum BattleState
     NoCombat = 0,
     DrawStep = 1,
     Combat = 2,
-    EndStep = 3
+    EndStep = 3,
+    BattleOver = 4
 }
 public class BattleController : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class BattleController : MonoBehaviour
         }
         else if (battleState == BattleState.EndStep)
         {
-            DrawStep();
+            EndStep();
         }
     }
 
@@ -105,21 +106,6 @@ public class BattleController : MonoBehaviour
             // Simultaneous
             player.PlayCard(playerCard, enemy);
             enemy.PlayCard(enemyCard, player);
-            bool playerDead = CheckDead(player);
-            bool enemyDead = CheckDead(enemy);
-
-            if(playerDead && enemyDead)
-            {
-                Debug.Log("Draw");
-            }
-            else if (enemyDead)
-            {
-                Debug.Log("Player Wins");
-            }
-            else if (playerDead)
-            {
-                Debug.Log("Enemy Wins");
-            }
         }
 
         battleUI.DisplayHands();
@@ -128,6 +114,40 @@ public class BattleController : MonoBehaviour
         playerCard = null;
         enemyCard = null;
         
+    }
+
+    public void EndStep()
+    {
+        bool playerDead = CheckDead(player);
+        bool enemyDead = CheckDead(enemy);
+
+        if (playerDead && enemyDead)
+        {
+            Debug.Log("Draw");
+            //player.die, or maybe make it so u clutch with 1hp
+        }
+        else if (enemyDead)
+        {
+            Debug.Log("Player Wins");
+            Enemy enemyScript = enemy.GetComponent<Enemy>();
+            enemyScript.GiveRewards(player);
+            battleUI.EndBattle();
+            player.EndBattle();
+            battleState = BattleState.NoCombat;
+
+        }
+        else if (playerDead)
+        {
+            Debug.Log("Enemy Wins");
+            battleState = BattleState.NoCombat;
+            //player.die
+
+        }
+        else
+        {
+            battleState = BattleState.DrawStep;
+        }
+
     }
 
     public bool CheckDead(PlayerStats target)

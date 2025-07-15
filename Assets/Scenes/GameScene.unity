@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 100}
+  m_AnchoredPosition: {x: 0, y: 136}
   m_SizeDelta: {x: 0, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &10924217
@@ -7914,6 +7914,22 @@ PrefabInstance:
       propertyPath: battleController
       value: 
       objectReference: {fileID: 1007511313}
+    - target: {fileID: 4406485156455469849, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: cardRewards.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4406485156455469849, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: packRewards.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4406485156455469849, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: 'cardRewards.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7b30e71f96c8ec54dac6be2f0acc459e, type: 2}
+    - target: {fileID: 4406485156455469849, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: 'packRewards.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3cd460c34c59c1648bc6c7387b83f87f, type: 2}
     - target: {fileID: 7426430650623634192, guid: 6b080ce2347b8c540866146b35522579, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
