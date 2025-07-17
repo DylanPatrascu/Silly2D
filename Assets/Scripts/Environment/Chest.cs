@@ -6,26 +6,27 @@ public class Chest : MonoBehaviour
     public PackSO[] packRewards;
     public bool canInteract;
     public Sprite openedSprite;
-    public CardManager cardManager;
-    private SpriteRenderer spriteRenderer;
     public bool opened = false;
-    public Inventory inventory;
 
+    private CardManager cardManager;
+    private Inventory inventory;
+    private SpriteRenderer spriteRenderer;
+    private PlayerMovement nearbyPlayerMovement;
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-    // Update is called once per frame
+
     void Update()
     {
-        if(opened)
-        {
+        if (opened || !canInteract || nearbyPlayerMovement == null)
             return;
-        }
-        if(canInteract)
+
+        if (nearbyPlayerMovement.interact)
         {
-            //check if interact is pressed
+            nearbyPlayerMovement.interact = false;
+
             Debug.Log("Chest Opened");
             ClaimRewards();
             spriteRenderer.sprite = openedSprite;
@@ -35,34 +36,41 @@ public class Chest : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            cardManager = other.gameObject.GetComponent<CardManager>();
-            inventory = cardManager.GetInventory();
-            canInteract = true;
+            cardManager = other.GetComponent<CardManager>();
+            inventory = cardManager?.GetInventory();
+            nearbyPlayerMovement = other.GetComponent<PlayerMovement>();
+            canInteract = cardManager != null && nearbyPlayerMovement != null;
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            cardManager = null;
-            inventory = null;
-            canInteract = false;
+            if (other.GetComponent<PlayerMovement>() == nearbyPlayerMovement)
+            {
+                cardManager = null;
+                inventory = null;
+                nearbyPlayerMovement = null;
+                canInteract = false;
+            }
         }
     }
 
     public void ClaimRewards()
     {
-        for(int i = 0; i < cardRewards.Length; i++)
+        if (inventory == null) return;
+
+        foreach (var card in cardRewards)
         {
-            inventory.AddCard(cardRewards[i]);
+            inventory.AddCard(card);
         }
 
-        for (int i = 0; i < packRewards.Length; i++)
+        foreach (var pack in packRewards)
         {
-            inventory.AddPack(packRewards[i]);
+            inventory.AddPack(pack);
         }
     }
 }

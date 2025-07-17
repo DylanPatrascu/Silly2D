@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private float lastHorizontalDirection = 1f;
 
     public PauseMenuController pauseMenu;
+
+    public bool interact;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,5 +47,20 @@ public class PlayerMovement : MonoBehaviour
             pauseMenu.PauseGame(!pauseMenu.IsPaused());
         }
     }
+
+    public void Interact(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            interact = true;
+            Debug.Log("Interact started");
+        }
+        else if (context.canceled)
+        {
+            interact = false;
+            Debug.Log("Interact canceled");
+        }
+    }
+
 
 }
