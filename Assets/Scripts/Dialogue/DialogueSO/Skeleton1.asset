@@ -16,4 +16,4 @@ MonoBehaviour:
   portrait: {fileID: 1946843142, guid: dd5591f1c5a1dc74bbb42b3ee100f3a2, type: 3}
   talkingClip: {fileID: 8300000, guid: 86f3599107fa03b41867c61af9717169, type: 3}
   sentences:
-  - Sans? You must've confused me for someone else.
+  - Sans? You must be confusing me for someone else.

@@ -16,10 +16,11 @@ public class DialogueManager : MonoBehaviour
     public Image portrait;
     public AudioClip panelOpen, panelClose;
     [Space]
-    public Vector3 showPanelPos = new Vector3(0,-140,0);
-    public Vector3 hidePanelPos = new Vector3(0, -400, 0);
+    public Vector3 showPanelPos = new Vector3(0,0,0);
+    public Vector3 hidePanelPos = new Vector3(0, -900, 0);
     public float panelAnimationTime = 1;
     public float textSpeed = 0.01f;
+    public GameObject dialoguePanel;
 
     Node curNode;
     Queue<string> sentences = new Queue<string>();
@@ -34,6 +35,9 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Node rootNode)
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         StopAllCoroutines();
         curNode = rootNode;
         //option node
@@ -65,7 +69,7 @@ public class DialogueManager : MonoBehaviour
             }
 
             source.PlayOneShot(panelOpen);
-            transform.DOLocalMove(showPanelPos, panelAnimationTime).OnComplete(() => DisplaySentence());
+            dialoguePanel.transform.DOLocalMove(showPanelPos, panelAnimationTime).OnComplete(() => DisplaySentence());
         }
         //simple node
         else if (curNode.GetType() == typeof(SimpleDialogueNode))
@@ -92,7 +96,7 @@ public class DialogueManager : MonoBehaviour
             }
 
             source.PlayOneShot(panelOpen);
-            transform.DOLocalMove(showPanelPos, panelAnimationTime).OnComplete(() => DisplaySentence());
+            dialoguePanel.transform.DOLocalMove(showPanelPos, panelAnimationTime).OnComplete(() => DisplaySentence());
         }
         //control node;
         else
@@ -179,6 +183,6 @@ public class DialogueManager : MonoBehaviour
     {
         StopAllCoroutines();
         source.PlayOneShot(panelClose);
-        transform.DOLocalMove(hidePanelPos, panelAnimationTime).OnComplete(() => {OnDialogueEnd?.Invoke();});
+        dialoguePanel.transform.DOLocalMove(hidePanelPos, panelAnimationTime).OnComplete(() => {Cursor.lockState = CursorLockMode.Locked; Cursor.visible = false; OnDialogueEnd?.Invoke();});
     }
 }
