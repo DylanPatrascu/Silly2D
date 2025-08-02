@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     private bool playerInRange = false;
     private PlayerMovement nearbyPlayerMovement;
     private PlayerStats nearbyPlayerStats;
+    public DialogueTree tree;
 
     private void Awake()
     {
@@ -24,8 +25,16 @@ public class Enemy : MonoBehaviour
             nearbyPlayerMovement.interact = false;
 
             Debug.Log("Battle triggered by interact!");
-            battleController.StartBattle(nearbyPlayerStats, enemyStats);
+
+            DialogueManager dialogueManager = FindAnyObjectByType<DialogueManager>();
+            dialogueManager.OnDialogueEnd = () =>
+            {
+                battleController.StartBattle(nearbyPlayerStats, enemyStats);
+            };
+
+            dialogueManager.StartDialogue(tree.nodes[0]);
         }
+
     }
 
     public void GiveRewards(PlayerStats player)
