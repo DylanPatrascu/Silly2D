@@ -48,7 +48,7 @@ public class DialogueManager : MonoBehaviour
             Dialogue dialogue = options.speaker;
             
             //set panel
-            nameText.text = dialogue.name;
+            nameText.text = dialogue.speakerName;
             portrait.sprite = dialogue.portrait;
             talkingClip = dialogue.talkingClip;
             sentenceText.text = "";
@@ -79,7 +79,7 @@ public class DialogueManager : MonoBehaviour
             Dialogue dialogue = simple.sentence;
             
             //set panel
-            nameText.text = dialogue.name;
+            nameText.text = dialogue.speakerName;
             portrait.sprite = dialogue.portrait;
             talkingClip = dialogue.talkingClip;
             sentenceText.text = "";

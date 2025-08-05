@@ -1,7 +1,10 @@
 using NUnit;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Sprites;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class BattleUI : MonoBehaviour
 {
@@ -28,6 +31,16 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private TMP_Text enemyDeck;
     [SerializeField] private TMP_Text enemyHand;
     [SerializeField] private TMP_Text enemyGraveyard;
+
+    [SerializeField] private TMP_Text sentenceText;
+    [SerializeField] private float textSpeed;
+    [SerializeField] private AudioSource source;
+    [SerializeField] private AudioClip talkingClip;
+
+    private Queue<string> messageQueue = new Queue<string>();
+    private bool isDisplayingMessage = false;
+
+
 
     public void StartBattle()
     {
@@ -94,6 +107,46 @@ public class BattleUI : MonoBehaviour
         enemyGraveyard.text = "Graveyard: " + e.GetGraveyardSize().ToString();
     }
 
+    public void DisplaySentence(string sentence)
+    {
+        messageQueue.Enqueue(sentence);
+        if (!isDisplayingMessage)
+        {
+            StartCoroutine(ProcessQueue());
+        }
+    }
 
+    private IEnumerator ProcessQueue()
+    {
+        isDisplayingMessage = true;
+
+        while (messageQueue.Count > 0)
+        {
+            string currentSentence = messageQueue.Dequeue();
+            yield return StartCoroutine(RenderSentence(currentSentence));
+
+            // Small pause between messages
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        isDisplayingMessage = false;
+    }
+
+    private IEnumerator RenderSentence(string sentence)
+    {
+        //sentenceText.text = "";
+        // Keep existing text, then append the new sentence on a new line.
+        string previousText = sentenceText.text;
+        sentenceText.text = previousText + (string.IsNullOrEmpty(previousText) ? "" : "\n");
+
+        foreach (char letter in sentence)
+        {
+            sentenceText.text += letter;
+            if (talkingClip && source && sentenceText.text.Length % 4 == 0)
+                source.PlayOneShot(talkingClip);
+
+            yield return new WaitForSeconds(textSpeed);
+        }
+    }
 
 }

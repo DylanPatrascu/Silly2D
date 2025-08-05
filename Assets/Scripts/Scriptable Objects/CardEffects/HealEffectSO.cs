@@ -5,8 +5,8 @@ public class HealEffectSO : CardEffectSO
 {
     public int healAmount;
 
-    public override void ApplyEffect(CardRuntimeContext context)
+    public override string ApplyEffect(CardRuntimeContext context)
     {
-        context.caster.Heal(healAmount);
+        return context.caster.Heal(healAmount);
     }
 }

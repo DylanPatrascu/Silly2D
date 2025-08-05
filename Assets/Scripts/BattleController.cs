@@ -17,7 +17,7 @@ public class BattleController : MonoBehaviour
     public CardSO enemyCard;
 
     public BattleUI battleUI;
-    public int turnCounter = 0;
+    public int turnCounter = -1;
     public BattleState battleState = BattleState.NoCombat;
 
     private void Update()
@@ -42,28 +42,43 @@ public class BattleController : MonoBehaviour
 
     public void StartBattle(PlayerStats p, PlayerStats e)
     {
+        Debug.Log("BattleController instance: " + this.gameObject.name);
+        Debug.Log("BattleUI reference: " + (battleUI != null ? "Assigned" : "NULL"));
+        if (battleUI == null)
+        {
+            Debug.LogError("BattleUI is null at runtime!");
+            return;
+        }
+        if (!battleUI.gameObject.activeInHierarchy)
+        {
+            Debug.LogWarning("BattleUI object was inactive at battle start.");
+        }
         player = p;
         p.StartBattle();
         enemy = e;
         e.StartBattle();
-        for(int i = 0; i < 4; i++)
-        {
-            player.DrawCard();
-            enemy.DrawCard();
-        }
+        
+        player.DrawCard(5);
+        enemy.DrawCard(5);
         battleUI.StartBattle();
         turnCounter = 0;
         battleState = BattleState.DrawStep;
+        battleUI.DisplaySentence("Battle Started!");
     }
     public void DrawStep()
     {
         Debug.Log("Draw step");
-        player.DrawCard();
-        enemy.DrawCard();
+        if (turnCounter > 0) // Only draw if not the first turn
+        {
+            player.DrawCard(1);
+            enemy.DrawCard(1);
+        }
+
         battleUI.DisplayHands();
         battleUI.DisplayStats();
         battleState = BattleState.Combat;
     }
+
     public void Combat()
     {
         if (playerCard == null)
@@ -78,34 +93,34 @@ public class BattleController : MonoBehaviour
 
         if (playerFirst)
         {
-            player.PlayCard(playerCard, enemy);
+            player.PlayCard(playerCard, enemy, this);
             if(CheckDead(enemy))
             {
                 Debug.Log("Player wins");
             } 
             else
             {
-                enemy.PlayCard(enemyCard, player);
+                enemy.PlayCard(enemyCard, player, this);
             }
         }
         else if (enemyFirst)
         {
-            enemy.PlayCard(enemyCard, player);
+            enemy.PlayCard(enemyCard, player, this);
             if (CheckDead(player))
             {
                 Debug.Log("Enemy wins");
             } 
             else
             {
-                player.PlayCard(playerCard, enemy);
+                player.PlayCard(playerCard, enemy, this);
 
             }
         }
         else
         {
             // Simultaneous
-            player.PlayCard(playerCard, enemy);
-            enemy.PlayCard(enemyCard, player);
+            player.PlayCard(playerCard, enemy, this);
+            enemy.PlayCard(enemyCard, player, this);
         }
 
         battleUI.DisplayHands();
@@ -145,6 +160,7 @@ public class BattleController : MonoBehaviour
         }
         else
         {
+            turnCounter++;
             battleState = BattleState.DrawStep;
         }
 

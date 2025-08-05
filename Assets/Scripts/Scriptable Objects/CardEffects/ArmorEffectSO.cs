@@ -5,8 +5,8 @@ public class ArmorEffectSO : CardEffectSO
 {
     public int armorAmount;
 
-    public override void ApplyEffect(CardRuntimeContext context)
+    public override string ApplyEffect(CardRuntimeContext context)
     {
-        context.caster.AddArmor(armorAmount);
+        return context.caster.AddArmor(armorAmount);
     }
 }

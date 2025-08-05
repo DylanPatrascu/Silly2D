@@ -29,49 +29,54 @@ public class PlayerStats : MonoBehaviour
     }
 
 
-    public void TakeDamage(int amount, bool piercing)
+    public string TakeDamage(int amount, bool piercing)
     {
         int damage = piercing ? amount : Mathf.Max(amount - armor, 0);
         health -= damage;
-        Debug.Log($"{playerName} took {damage} damage. Health: {health}");
+        return $"{playerName} took {damage} damage. Health: {health}";
     }
 
-    public void Heal(int amount)
+    public string Heal(int amount)
     {
         health += amount;
         if (health > maxHealth)
         {
             health = maxHealth;
         }
-        Debug.Log($"{playerName} healed for {amount}. Health: {health}");
+        return $"{playerName} healed for {amount}. Health: {health}";
     }
 
-    public void AddArmor(int amount)
+    public string AddArmor(int amount)
     {
         armor += amount;
-        Debug.Log($"{playerName} gained {armor}. Armor: {armor}");
+        return $"{playerName} gained {armor}. Armor: {armor}";
     }
 
-    public void DrawCard()
+    public void DrawCard(int num)
     {
-        if (runtimeDeck.Count == 0)
+        for(int i = 0; i < num; i++)
         {
-            Debug.Log($"{playerName}'s deck is empty");
-            return;
+            if (runtimeDeck.Count == 0)
+            {
+                Debug.Log($"{playerName}'s deck is empty");
+            }
+            CardSO cardDrawn = runtimeDeck[0];
+            runtimeDeck.RemoveAt(0);
+            hand.Add(cardDrawn);
+            Debug.Log($"{playerName} drew {cardDrawn.title}");
         }
-        CardSO cardDrawn = runtimeDeck[0];
-        runtimeDeck.RemoveAt(0);
-        hand.Add(cardDrawn);
-        Debug.Log($"{playerName} drew {cardDrawn.title}");
     }
 
-    public void PlayCard(CardSO card, PlayerStats target = null)
+    public void PlayCard(CardSO card, PlayerStats target = null, BattleController battleController = null)
     {
         if (!hand.Contains(card))
         {
             Debug.Log($"{playerName}'s hand is empty or doesn't contain selected card");
+            battleController?.battleUI.DisplaySentence($"{playerName}'s hand doesn't contain {card.title}.");
             return;
         }
+
+        battleController?.battleUI.DisplaySentence($"{playerName} played {card.title}!");
 
         foreach (var effect in card.effects)
         {
@@ -82,13 +87,16 @@ public class PlayerStats : MonoBehaviour
                 card = card
             };
 
-            effect.ApplyEffect(context);
+            string effectResult = effect.ApplyEffect(context); // Modify ApplyEffect to return a description string
+            if (!string.IsNullOrEmpty(effectResult))
+                battleController?.battleUI.DisplaySentence(effectResult);
         }
 
         hand.Remove(card);
         graveyard.Add(card);
         playedCard = true;
     }
+
 
 
     public bool CardPlayed()
@@ -129,14 +137,14 @@ public class PlayerStats : MonoBehaviour
     }
 
     // Fisher–Yates shuffle
-    private void Shuffle<T>(List<T> list)
+    private string Shuffle<T>(List<T> list)
     {
         for (int i = list.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
             (list[i], list[j]) = (list[j], list[i]);
         }
-        Debug.Log($"{playerName} shuffled their deck.");
+        return $"{playerName} shuffled their deck.";
 
     }
 

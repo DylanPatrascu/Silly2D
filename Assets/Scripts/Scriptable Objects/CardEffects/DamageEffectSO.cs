@@ -6,9 +6,9 @@ public class DamageEffectSO : CardEffectSO
     public int amount;
     public bool piercing;
 
-    public override void ApplyEffect(CardRuntimeContext context)
+    public override string ApplyEffect(CardRuntimeContext context)
     {
-        context.target.TakeDamage(amount, piercing);
+        return context.target.TakeDamage(amount, piercing);
     }
 }
 
