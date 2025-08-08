@@ -33,7 +33,7 @@ public class PlayerStats : MonoBehaviour
     {
         int damage = piercing ? amount : Mathf.Max(amount - armor, 0);
         health -= damage;
-        return $"{playerName} took {damage} damage. Health: {health}";
+        return $"{playerName} took {damage} damage.";
     }
 
     public string Heal(int amount)
@@ -43,13 +43,13 @@ public class PlayerStats : MonoBehaviour
         {
             health = maxHealth;
         }
-        return $"{playerName} healed for {amount}. Health: {health}";
+        return $"{playerName} healed for {amount}.";
     }
 
     public string AddArmor(int amount)
     {
         armor += amount;
-        return $"{playerName} gained {armor}. Armor: {armor}";
+        return $"{playerName} gained {armor}.";
     }
 
     public void DrawCard(int num)
@@ -59,12 +59,21 @@ public class PlayerStats : MonoBehaviour
             if (runtimeDeck.Count == 0)
             {
                 Debug.Log($"{playerName}'s deck is empty");
+                RecycleGraveyard();
             }
             CardSO cardDrawn = runtimeDeck[0];
             runtimeDeck.RemoveAt(0);
             hand.Add(cardDrawn);
             Debug.Log($"{playerName} drew {cardDrawn.title}");
         }
+    }
+
+    public void RecycleGraveyard()
+    {
+        runtimeDeck = graveyard;
+        graveyard.Clear();
+        Shuffle(runtimeDeck);
+        Debug.Log($"{playerName} reshuffled their graveyard into their deck.");
     }
 
     public void PlayCard(CardSO card, PlayerStats target = null, BattleController battleController = null)
@@ -96,8 +105,6 @@ public class PlayerStats : MonoBehaviour
         graveyard.Add(card);
         playedCard = true;
     }
-
-
 
     public bool CardPlayed()
     {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sword2
   m_EditorClassIdentifier: 
   title: Sword II
-  description: Deals 10 damage
+  description: Deals 20 damage
   flavour: 
   sprite: {fileID: 21300000, guid: 9fc1e93a1cbde614cabb6a1853940d65, type: 3}
   rarity: 1

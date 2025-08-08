@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool interact;
 
+    public bool canMove = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,6 +28,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(!canMove)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
         if(horizontalMovement != 0)
         {
             lastHorizontalDirection = horizontalMovement;
@@ -35,6 +43,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
+        if (!canMove)
+        {
+            horizontalMovement = 0;
+            verticalMovement = 0;
+        }
         horizontalMovement = context.ReadValue<Vector2>().x;
         verticalMovement = context.ReadValue<Vector2>().y;
 
@@ -42,6 +55,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void Pause(InputAction.CallbackContext context)
     {
+        if(!canMove)
+        {
+            return;
+        }
+
         if (context.performed)
         {
             pauseMenu.PauseGame(!pauseMenu.IsPaused());
@@ -50,16 +68,30 @@ public class PlayerMovement : MonoBehaviour
 
     public void Interact(InputAction.CallbackContext context)
     {
+        if(!canMove)
+        {
+            return;
+        }
         if (context.started)
         {
             interact = true;
-            Debug.Log("Interact started");
         }
         else if (context.canceled)
         {
             interact = false;
-            Debug.Log("Interact canceled");
         }
+    }
+
+    public void DisableMovement()
+    {
+        canMove = false;
+        horizontalMovement = 0;
+        verticalMovement = 0;
+    }
+
+    public void EnableMovement()
+    {
+        canMove = true;
     }
 
 

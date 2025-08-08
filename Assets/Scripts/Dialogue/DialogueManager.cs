@@ -21,6 +21,7 @@ public class DialogueManager : MonoBehaviour
     public float panelAnimationTime = 1;
     public float textSpeed = 0.01f;
     public GameObject dialoguePanel;
+    public PlayerMovement playerMovement;
 
     Node curNode;
     Queue<string> sentences = new Queue<string>();
@@ -37,6 +38,7 @@ public class DialogueManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        playerMovement.DisableMovement();
 
         StopAllCoroutines();
         curNode = rootNode;
@@ -183,6 +185,7 @@ public class DialogueManager : MonoBehaviour
     {
         StopAllCoroutines();
         source.PlayOneShot(panelClose);
+        playerMovement.EnableMovement();
         dialoguePanel.transform.DOLocalMove(hidePanelPos, panelAnimationTime).OnComplete(() => {Cursor.lockState = CursorLockMode.Locked; Cursor.visible = false; OnDialogueEnd?.Invoke();});
     }
 }

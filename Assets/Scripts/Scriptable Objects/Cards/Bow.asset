@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bow
   m_EditorClassIdentifier: 
   title: Bow
-  description: Quick cast, deals 5 damage
+  description: Quick cast, deals 10 damage
   flavour: 
   sprite: {fileID: 21300000, guid: 2306709f59ed44a469b5ce3874b8ab0d, type: 3}
   rarity: 0

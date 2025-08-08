@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: deae83db1477d40408e77b4975662a0b, type: 3}
-  m_Name: Damage4
+  m_Name: Damage14 1
   m_EditorClassIdentifier: 
-  amount: 20
-  piercing: 0
+  amount: 14
+  piercing: 1

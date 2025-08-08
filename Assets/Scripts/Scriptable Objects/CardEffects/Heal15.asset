@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deae83db1477d40408e77b4975662a0b, type: 3}
-  m_Name: Damage7
+  m_Script: {fileID: 11500000, guid: 8faebea611397cf4089b54d440aa0804, type: 3}
+  m_Name: Heal15
   m_EditorClassIdentifier: 
-  amount: 35
-  piercing: 0
+  healAmount: 15

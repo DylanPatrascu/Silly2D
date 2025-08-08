@@ -597,6 +597,7 @@ MonoBehaviour:
   sprite: {fileID: 158251727}
   pauseMenu: {fileID: 1041012784}
   interact: 0
+  canMove: 1
 --- !u!114 &158251730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4589,6 +4590,7 @@ MonoBehaviour:
   panelAnimationTime: 0.5
   textSpeed: 0.01
   dialoguePanel: {fileID: 1880674623}
+  playerMovement: {fileID: 158251729}
 --- !u!4 &1178800303
 Transform:
   m_ObjectHideFlags: 0
