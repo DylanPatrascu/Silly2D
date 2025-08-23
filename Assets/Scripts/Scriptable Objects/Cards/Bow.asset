@@ -19,4 +19,4 @@ MonoBehaviour:
   rarity: 0
   quickCast: 1
   effects:
-  - {fileID: 11400000, guid: b03923ea5c8814e4089759b96a2e2cf8, type: 2}
+  - {fileID: 11400000, guid: 9c6648c71e516aa409faaa4f8a54c6e2, type: 2}

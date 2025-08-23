@@ -70,11 +70,18 @@ public class PlayerStats : MonoBehaviour
 
     public void RecycleGraveyard()
     {
-        runtimeDeck = graveyard;
+        if (graveyard.Count == 0)
+        {
+            Debug.Log($"{playerName}'s graveyard is empty.");
+            return;
+        }
+
+        runtimeDeck = new List<CardSO>(graveyard);
         graveyard.Clear();
         Shuffle(runtimeDeck);
         Debug.Log($"{playerName} reshuffled their graveyard into their deck.");
     }
+
 
     public void PlayCard(CardSO card, PlayerStats target = null, BattleController battleController = null)
     {

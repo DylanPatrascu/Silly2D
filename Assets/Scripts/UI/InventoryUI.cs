@@ -7,6 +7,10 @@ public class InventoryUI : MonoBehaviour
 
     public GameObject packSlotPrefab;
     public GameObject packPanel;
+
+    public GameObject deckSlotPrefab;
+    public GameObject deckPanel;
+
     [SerializeField] private CardManager cardManager;
     private Inventory inv;
 
@@ -57,6 +61,12 @@ public class InventoryUI : MonoBehaviour
             GameObject slotGO = Instantiate(packSlotPrefab, packPanel.transform);
             PackInventoryUI packSlotUI = slotGO.GetComponent<PackInventoryUI>();
             packSlotUI.Setup(pack, count, discovered, packUI);
+        }
+
+        //Decks
+        foreach (Transform child in deckPanel.transform)
+        {
+            Destroy(child.gameObject);
         }
     }
 }

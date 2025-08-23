@@ -5,5 +5,8 @@ using UnityEngine;
 public class DeckSO : ScriptableObject
 {
     public string title;
+    public int maxCopies;
+    public int deckSize;
     public List<CardSO> deckList = new List<CardSO>();
+    
 }
