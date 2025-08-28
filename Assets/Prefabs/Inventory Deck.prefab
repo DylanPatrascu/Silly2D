@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9037823461094162022}
   - component: {fileID: 5729164607231879281}
   - component: {fileID: 168963470188404482}
-  - component: {fileID: 6585150537122825467}
+  - component: {fileID: 3522476809130096216}
   m_Layer: 5
   m_Name: Inventory Deck
   m_TagString: Untagged
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6585150537122825467
+--- !u!114 &3522476809130096216
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,10 +130,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4160262673959662818}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca4c9be6a1eef284997d8762f9d85a23, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f746414ae6aac0489acee7c9e1b4f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  quantityText: {fileID: 0}
-  questionMarkSprite: {fileID: 0}
-  packButton: {fileID: 168963470188404482}
+  deckButton: {fileID: 168963470188404482}

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: SkeletonDeck
   m_EditorClassIdentifier: 
   title: Skeleton Deck
+  maxCopies: 2
+  deckSize: 30
   deckList:
   - {fileID: 11400000, guid: fa64662bc2401924d9066e0972d46ba5, type: 2}
   - {fileID: 11400000, guid: 6b854acad57662f48a03265f5cc83515, type: 2}

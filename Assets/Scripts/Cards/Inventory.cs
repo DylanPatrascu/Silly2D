@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Inventory
@@ -8,9 +9,10 @@ public class Inventory
     private Dictionary<PackSO, int> packInv = new Dictionary<PackSO, int>();
     private Dictionary<PackSO, bool> packDiscovered = new Dictionary<PackSO, bool>();
 
+    private List<DeckSO> deckInv = new List<DeckSO>();
 
 
-    public Inventory(CardDatabaseSO cardDatabase, PackDatabaseSO packDatabase)
+    public Inventory(CardDatabaseSO cardDatabase, PackDatabaseSO packDatabase, DeckDatabaseSO deckDatabase)
     {
         for (int i = 0; i < cardDatabase.cards.Length; i++)
         {
@@ -22,6 +24,7 @@ public class Inventory
             packInv[packDatabase.packs[i]] = 0;
             packDiscovered[packDatabase.packs[i]] = false;
         }
+        deckInv = new List<DeckSO>(deckDatabase.decks);
     }
 
     public void AddCard(CardSO card)
@@ -98,5 +101,10 @@ public class Inventory
     public IEnumerable<PackSO> GetAllPacks()
     {
         return packInv.Keys;
+    }
+
+    public IEnumerable<DeckSO> GetAllDecks()
+    {
+        return deckInv;
     }
 }

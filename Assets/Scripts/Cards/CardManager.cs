@@ -4,12 +4,13 @@ public class CardManager : MonoBehaviour
 {
     public CardDatabaseSO cardDatabase;
     public PackDatabaseSO packDatabase;
+    public DeckDatabaseSO deckDatabase;
     public Inventory inventory;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        inventory = new Inventory(cardDatabase, packDatabase);
+        inventory = new Inventory(cardDatabase, packDatabase, deckDatabase);
     }
 
     // Update is called once per frame

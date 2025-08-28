@@ -16,11 +16,13 @@ public class InventoryUI : MonoBehaviour
 
     private PackUIController packUI;
     private CardUIController cardUI;
+    private DeckUIController deckUI;
 
     private void Awake()
     {
         packUI = GetComponent<PackUIController>();
         cardUI = GetComponent<CardUIController>();
+        deckUI = GetComponent<DeckUIController>();
         inv = cardManager.GetInventory();
         if(inv == null)
         {
@@ -67,6 +69,12 @@ public class InventoryUI : MonoBehaviour
         foreach (Transform child in deckPanel.transform)
         {
             Destroy(child.gameObject);
+        }
+        foreach (DeckSO deck in inv.GetAllDecks())
+        {
+            GameObject slotGO = Instantiate(deckSlotPrefab, deckPanel.transform);
+            DeckInventoryUI deckSlotUI = slotGO.GetComponent<DeckInventoryUI>();
+            deckSlotUI.Setup(deck, deckUI);
         }
     }
 }
