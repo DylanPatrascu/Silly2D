@@ -8,5 +8,10 @@ public class DeckSO : ScriptableObject
     public int maxCopies = 2;
     public int deckSize = 30;
     public List<CardSO> deckList = new List<CardSO>();
-    
+
+    public IEnumerable<CardSO> GetAllCards()
+    {
+        return deckList;
+    }
+
 }

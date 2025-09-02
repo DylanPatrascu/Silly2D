@@ -16,4 +16,8 @@ MonoBehaviour:
   maxCopies: 2
   deckSize: 30
   deckList:
-  - {fileID: 11400000, guid: fa64662bc2401924d9066e0972d46ba5, type: 2}
+  - {fileID: 11400000, guid: 02ec62b9c01751942aebf4726666c321, type: 2}
+  - {fileID: 11400000, guid: 30b0bc35b0934d94a8b54653240619c4, type: 2}
+  - {fileID: 11400000, guid: f387e8564c3a81c4c851454b063c39fa, type: 2}
+  - {fileID: 11400000, guid: 9b56c96abc06f114b8bf766f303d081b, type: 2}
+  - {fileID: 11400000, guid: d4ba1ef4adad49f42b4237938f0d28c0, type: 2}

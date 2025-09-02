@@ -107,4 +107,20 @@ public class Inventory
     {
         return deckInv;
     }
+
+    public void AddCardToDeck(DeckSO deck, CardSO card)
+    {
+        if(deck.deckList.Count >= deck.deckSize)
+        {
+            Debug.Log("Deck is max size");
+            return;
+        }
+        //add constraints here
+        deck.deckList.Add(card);
+    }
+
+    public void RemoveCardFromDeck(DeckSO deck, CardSO card)
+    {
+        deck.deckList.Remove(card);
+    }
 }
