@@ -9,9 +9,12 @@ public class DeckCardUI : MonoBehaviour
     public Button button;
 
 
-    public void Setup(DeckSO deck, CardSO card, CardManager cardManager)
+    public void Setup(DeckSO deck, CardSO card, CardManager cardManager, bool editMode)
     {
-        button.onClick.AddListener(delegate { cardManager.GetInventory().RemoveCardFromDeck(deck, card); Destroy(this.gameObject); });
+        if(editMode)
+        {
+            button.onClick.AddListener(delegate { cardManager.GetInventory().RemoveCardFromDeck(deck, card); Destroy(this.gameObject); });
+        }
         title.text = card.title;
         sprite.sprite = card.sprite;
     }

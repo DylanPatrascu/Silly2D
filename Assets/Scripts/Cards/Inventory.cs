@@ -10,10 +10,12 @@ public class Inventory
     private Dictionary<PackSO, bool> packDiscovered = new Dictionary<PackSO, bool>();
 
     private List<DeckSO> deckInv = new List<DeckSO>();
+    private DeckDatabaseSO deckDatabase;
 
 
     public Inventory(CardDatabaseSO cardDatabase, PackDatabaseSO packDatabase, DeckDatabaseSO deckDatabase)
     {
+        this.deckDatabase = deckDatabase;
         for (int i = 0; i < cardDatabase.cards.Length; i++)
         {
             cardInv[cardDatabase.cards[i]] = 0;
@@ -122,5 +124,15 @@ public class Inventory
     public void RemoveCardFromDeck(DeckSO deck, CardSO card)
     {
         deck.deckList.Remove(card);
+    }
+
+    public void AddDeck()
+    {
+
+    }
+
+    public void RemoveDeck(DeckSO deck)
+    {
+        deckInv.Remove(deck);
     }
 }

@@ -26,9 +26,10 @@ public class DeckUIController : MonoBehaviour
             Debug.Log("Initializing cards");
             GameObject cardGO = Instantiate(deckCardPrefab, deckPanel.transform);
             DeckCardUI deckCardUI = cardGO.GetComponent<DeckCardUI>();
-            deckCardUI.Setup(deck, card, cardManager);
+            deckCardUI.Setup(deck, card, cardManager, false);
         }
         Debug.Log("Initialized Cards");
+        canvas.SetActive(true);
     }
 
     public void HideDeck()
