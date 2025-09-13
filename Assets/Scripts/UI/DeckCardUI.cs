@@ -13,6 +13,7 @@ public class DeckCardUI : MonoBehaviour
     {
         if(editMode)
         {
+            Debug.Log("hi2");
             button.onClick.AddListener(delegate { cardManager.GetInventory().RemoveCardFromDeck(deck, card); Destroy(this.gameObject); });
         }
         title.text = card.title;

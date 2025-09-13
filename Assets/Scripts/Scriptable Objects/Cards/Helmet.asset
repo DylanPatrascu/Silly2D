@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb9b231de5bc5746b03ca3cb7ee2fdc, type: 3}
   m_Name: Helmet
   m_EditorClassIdentifier: 
+  guid: 2164e3a0-0e3b-4b1a-bfe5-eeb4adb01f81
   title: Helmet
   description: Grants 2 armor
   flavour: 

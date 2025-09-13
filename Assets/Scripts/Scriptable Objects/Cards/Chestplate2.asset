@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb9b231de5bc5746b03ca3cb7ee2fdc, type: 3}
   m_Name: Chestplate2
   m_EditorClassIdentifier: 
+  guid: 7cf93783-c1da-464d-9d68-6f96f7dc083b
   title: Chest II
   description: Grants 5 armor
   flavour: 

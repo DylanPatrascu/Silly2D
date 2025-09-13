@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb9b231de5bc5746b03ca3cb7ee2fdc, type: 3}
   m_Name: Spear2
   m_EditorClassIdentifier: 
+  guid: 7d3bc93a-3162-420b-a7ab-509bcd48d41f
   title: Spear II
   description: Quick Cast, piercing, deals 14 damage
   flavour: 

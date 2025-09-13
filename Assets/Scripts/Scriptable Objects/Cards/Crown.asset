@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb9b231de5bc5746b03ca3cb7ee2fdc, type: 3}
   m_Name: Crown
   m_EditorClassIdentifier: 
+  guid: d385bec1-e7fd-4ef1-b2f8-94c03e278ff1
   title: Crown
   description: Grants 3 armor and regenerate 10 health
   flavour: 

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using UnityEditor.Overlays;
 using UnityEngine;
 
 public class Inventory
@@ -10,23 +12,31 @@ public class Inventory
     private Dictionary<PackSO, bool> packDiscovered = new Dictionary<PackSO, bool>();
 
     private List<DeckSO> deckInv = new List<DeckSO>();
+    private CardDatabaseSO cardDatabase;
+    private PackDatabaseSO packDatabase;
     private DeckDatabaseSO deckDatabase;
+
+    private string savePath => Path.Combine(Application.persistentDataPath, "decks.json");
 
 
     public Inventory(CardDatabaseSO cardDatabase, PackDatabaseSO packDatabase, DeckDatabaseSO deckDatabase)
     {
+        this.cardDatabase = cardDatabase;
+        this.packDatabase = packDatabase;
         this.deckDatabase = deckDatabase;
-        for (int i = 0; i < cardDatabase.cards.Length; i++)
+
+        foreach (var card in cardDatabase.cards)
         {
-            cardInv[cardDatabase.cards[i]] = 0;
-            cardDiscovered[cardDatabase.cards[i]] = false;
+            cardInv[card] = 0;
+            cardDiscovered[card] = false;
         }
-        for (int i = 0; i < packDatabase.packs.Length; i++)
+        foreach (var pack in packDatabase.packs)
         {
-            packInv[packDatabase.packs[i]] = 0;
-            packDiscovered[packDatabase.packs[i]] = false;
+            packInv[pack] = 0;
+            packDiscovered[pack] = false;
         }
-        deckInv = new List<DeckSO>(deckDatabase.decks);
+
+        LoadDecks();
     }
 
     public void AddCard(CardSO card)
@@ -119,20 +129,87 @@ public class Inventory
         }
         //add constraints here
         deck.deckList.Add(card);
+        SaveDecks();
     }
 
     public void RemoveCardFromDeck(DeckSO deck, CardSO card)
     {
         deck.deckList.Remove(card);
+        SaveDecks();
     }
 
-    public void AddDeck()
+    public DeckSO AddDeck()
     {
+        DeckSO newDeck = ScriptableObject.CreateInstance<DeckSO>();
+        newDeck.title = "Deck " + deckInv.Count;
+        newDeck.deckList = new List<CardSO>();
 
+        deckInv.Add(newDeck);
+        SaveDecks();
+
+        Debug.Log($"Created deck {newDeck.title}");
+        //AddCardToDeck(newDeck, cardDatabase.cards[0]);
+        return newDeck;
     }
 
     public void RemoveDeck(DeckSO deck)
     {
-        deckInv.Remove(deck);
+        if (deckInv.Contains(deck))
+        {
+            deckInv.Remove(deck);
+            SaveDecks();
+        }
+    }
+
+    public void SaveDecks()
+    {
+        List<DeckSaveData> saveData = new List<DeckSaveData>();
+
+        foreach (var deck in deckInv)
+        {
+            DeckSaveData data = new DeckSaveData();
+            data.title = deck.title;
+            data.cardIDs = deck.deckList.Select(card => card.guid).ToList();
+            saveData.Add(data);
+        }
+
+        DeckSaveDataWrapper wrapper = new DeckSaveDataWrapper { decks = saveData };
+        string json = JsonUtility.ToJson(wrapper, true);
+        File.WriteAllText(savePath, json);
+
+        Debug.Log($"Saved decks to {savePath}");
+    }
+
+    public void LoadDecks()
+    {
+        deckInv.Clear();
+
+        if (!File.Exists(savePath))
+        {
+            // fallback: load default decks from database
+            deckInv = new List<DeckSO>(deckDatabase.decks);
+            Debug.Log("No save file found, loaded default decks.");
+            return;
+        }
+
+        string json = File.ReadAllText(savePath);
+        DeckSaveDataWrapper wrapper = JsonUtility.FromJson<DeckSaveDataWrapper>(json);
+
+        foreach (var data in wrapper.decks)
+        {
+            DeckSO deck = ScriptableObject.CreateInstance<DeckSO>();
+            deck.title = data.title;
+
+            foreach (string cardID in data.cardIDs)
+            {
+                CardSO card = cardDatabase.cards.FirstOrDefault(c => c.guid == cardID);
+                if (card != null)
+                    deck.deckList.Add(card);
+            }
+
+            deckInv.Add(deck);
+        }
+
+        Debug.Log($"Loaded {deckInv.Count} decks from save file.");
     }
 }

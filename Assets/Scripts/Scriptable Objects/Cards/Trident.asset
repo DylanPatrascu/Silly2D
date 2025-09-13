@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb9b231de5bc5746b03ca3cb7ee2fdc, type: 3}
   m_Name: Trident
   m_EditorClassIdentifier: 
+  guid: 3430ca6d-255d-4580-a6f5-e87057de8381
   title: Trident
   description: Deals 24 damage
   flavour: 

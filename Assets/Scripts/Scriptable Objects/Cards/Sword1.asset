@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb9b231de5bc5746b03ca3cb7ee2fdc, type: 3}
   m_Name: Sword1
   m_EditorClassIdentifier: 
+  guid: 1907621a-7969-4675-93e0-09af3c4aab08
   title: Sword I
   description: Deals 10 damage
   flavour: 

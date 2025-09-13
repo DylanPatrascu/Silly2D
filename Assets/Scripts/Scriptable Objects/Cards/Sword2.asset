@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb9b231de5bc5746b03ca3cb7ee2fdc, type: 3}
   m_Name: Sword2
   m_EditorClassIdentifier: 
+  guid: 42b0c9a0-729d-498a-9eda-0a027368027d
   title: Sword II
   description: Deals 20 damage
   flavour: 
