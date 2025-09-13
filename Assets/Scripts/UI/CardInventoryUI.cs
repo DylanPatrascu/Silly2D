@@ -28,5 +28,25 @@ public class CardInventoryUI : MonoBehaviour
 
         }
     }
+
+    public void EditModeSetup(DeckSO deck, CardSO card, CardManager cardManager, int count, bool discovered, DeckUIController deckUI)
+    {
+        if (discovered)
+        {
+            icon.sprite = card.sprite;
+            icon.color = Color.black;
+            rarityText.text = "<sprite=" + ((int)card.rarity) + ">";
+            quantityText.text = "x" + count;
+            cardButton.onClick.AddListener(delegate { cardManager.GetInventory().AddCardToDeck(deck, card); deckUI.DisplayDeck(deck); });
+        }
+        else
+        {
+            icon.sprite = questionMarkSprite.sprite;
+            rarityText.text = "";
+            quantityText.text = "";
+        }
+    }
+
+    
 }
 

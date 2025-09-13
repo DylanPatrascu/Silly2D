@@ -1,6 +1,8 @@
+using NUnit;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class DeckUIController : MonoBehaviour
 {
@@ -8,7 +10,7 @@ public class DeckUIController : MonoBehaviour
     public TMP_Text title;
 
     public GameObject deckCardPrefab;
-    public GameObject deckPanel;
+    public GameObject decklistPanel;
 
     public CardManager cardManager;
 
@@ -23,6 +25,9 @@ public class DeckUIController : MonoBehaviour
     public GameObject editButton;
     public GameObject saveButton;
 
+    public GameObject cardPrefab;
+    public GameObject decksPanel;
+
     private void Awake()
     {
         inventoryUI = GetComponent<InventoryUI>();
@@ -36,7 +41,7 @@ public class DeckUIController : MonoBehaviour
     {
         title.text = deck.title;
         Debug.Log("Entered Method");
-        foreach (Transform child in deckPanel.transform)
+        foreach (Transform child in decklistPanel.transform)
         {
             Debug.Log("Destroying children");
             Destroy(child.gameObject);
@@ -45,7 +50,7 @@ public class DeckUIController : MonoBehaviour
         foreach (CardSO card in deck.GetAllCards())
         {
             Debug.Log("Initializing cards");
-            GameObject cardGO = Instantiate(deckCardPrefab, deckPanel.transform);
+            GameObject cardGO = Instantiate(deckCardPrefab, decklistPanel.transform);
             DeckCardUI deckCardUI = cardGO.GetComponent<DeckCardUI>();
             deckCardUI.Setup(deck, card, cardManager, false);
         }
@@ -64,6 +69,7 @@ public class DeckUIController : MonoBehaviour
     {
         cardManager.GetInventory().RemoveDeck(selectedDeck);
         inventoryUI.DisplayInventory();
+        HideDeck();
     }
 
     public void CreateNewDeck()
@@ -80,7 +86,7 @@ public class DeckUIController : MonoBehaviour
         saveButton.SetActive(true);
         title.text = selectedDeck.title;
         Debug.Log("Entered Method");
-        foreach (Transform child in deckPanel.transform)
+        foreach (Transform child in decklistPanel.transform)
         {
             Debug.Log("Destroying children");
             Destroy(child.gameObject);
@@ -89,11 +95,28 @@ public class DeckUIController : MonoBehaviour
         foreach (CardSO card in selectedDeck.GetAllCards())
         {
             Debug.Log("Initializing cards");
-            GameObject cardGO = Instantiate(deckCardPrefab, deckPanel.transform);
+            GameObject cardGO = Instantiate(deckCardPrefab, decklistPanel.transform);
             DeckCardUI deckCardUI = cardGO.GetComponent<DeckCardUI>();
             deckCardUI.Setup(selectedDeck, card, cardManager, true);
         }
         Debug.Log("Initialized Cards");
+
+        //Cards
+        foreach (Transform child in decksPanel.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        Inventory inv = cardManager.GetInventory();
+        foreach (CardSO card in inv.GetAllCards())
+        {
+            int count = inv.GetCardCount(card);
+            bool discovered = inv.GetCardDiscovered(card);
+
+            GameObject slotGO = Instantiate(cardPrefab, decksPanel.transform);
+            CardInventoryUI cardSlotUI = slotGO.GetComponent<CardInventoryUI>();
+            cardSlotUI.EditModeSetup(selectedDeck, card, cardManager, count, discovered, this);
+        }
     }
 
     public void DisableEditMode()
@@ -103,6 +126,7 @@ public class DeckUIController : MonoBehaviour
         saveButton.SetActive(false);
         DisplayDeck(selectedDeck);
         SetHeaderVisibility(true);
+        inventoryUI.DisplayInventory();
     }
 
     public void SetHeaderVisibility(bool visible)

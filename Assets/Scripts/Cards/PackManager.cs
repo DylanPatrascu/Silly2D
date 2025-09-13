@@ -62,8 +62,9 @@ public class PackManager : MonoBehaviour
                 cardManager.GetInventory().AddCard(rareCards[i]);
             }
         }
-        inv.DisplayInventory();
         cardManager.GetInventory().RemovePack(pack);
+        inv.DisplayInventory();
+
     }
 
     // Fisher–Yates shuffle

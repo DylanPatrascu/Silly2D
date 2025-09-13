@@ -593,6 +593,7 @@ GameObject:
   m_Component:
   - component: {fileID: 145407952}
   - component: {fileID: 145407953}
+  - component: {fileID: 145407954}
   m_Layer: 5
   m_Name: Decklist
   m_TagString: Untagged
@@ -651,6 +652,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &145407954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145407951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &151179627
 GameObject:
   m_ObjectHideFlags: 0
@@ -7993,7 +8008,7 @@ MonoBehaviour:
   canvas: {fileID: 58098578}
   title: {fileID: 1057320182}
   deckCardPrefab: {fileID: 3054985552710770648, guid: bf725eeed3c17aa4cb7cd45a2d08b500, type: 3}
-  deckPanel: {fileID: 198656758}
+  decklistPanel: {fileID: 198656758}
   cardManager: {fileID: 158251730}
   selectedDeck: {fileID: 0}
   inventoryUI: {fileID: 0}
@@ -8003,6 +8018,8 @@ MonoBehaviour:
   editMode: 0
   editButton: {fileID: 502748277}
   saveButton: {fileID: 350367535}
+  cardPrefab: {fileID: 6674141325705121278, guid: 03a4842ebeb9bd74389594d0fd674b36, type: 3}
+  decksPanel: {fileID: 689877330}
 --- !u!1 &1430669650
 GameObject:
   m_ObjectHideFlags: 0

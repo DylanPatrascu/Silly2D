@@ -119,18 +119,42 @@ public class Inventory
     {
         return deckInv;
     }
+    public int GetCardCountInDeck(DeckSO deck, CardSO card)
+    {
+        return deck.deckList.Count(c => c == card);
+    }
 
     public void AddCardToDeck(DeckSO deck, CardSO card)
     {
-        if(deck.deckList.Count >= deck.deckSize)
+        // Check deck size
+        if (deck.deckList.Count >= deck.deckSize)
         {
             Debug.Log("Deck is max size");
             return;
         }
-        //add constraints here
+
+        // Check max copies
+        int countInDeck = GetCardCountInDeck(deck, card);
+        if (countInDeck >= deck.maxCopies)
+        {
+            Debug.Log($"Max copies of {card.title} reached ({deck.maxCopies})");
+            return;
+        }
+
+        // Check inventory vs deck
+        int countInInventory = GetCardCount(card);
+        if (countInDeck >= countInInventory)
+        {
+            Debug.Log($"Not enough copies of {card.title} in inventory to add another.");
+            return;
+        }
+
+        // All checks passed, add card
         deck.deckList.Add(card);
         SaveDecks();
+        Debug.Log($"Added {card.title} to {deck.title}. Deck count: {countInDeck + 1}, Inventory count: {countInInventory}");
     }
+
 
     public void RemoveCardFromDeck(DeckSO deck, CardSO card)
     {
