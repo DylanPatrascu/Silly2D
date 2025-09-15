@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using UnityEditor.Overlays;
 using UnityEngine;
 
 public class Inventory
@@ -12,12 +11,12 @@ public class Inventory
     private Dictionary<PackSO, bool> packDiscovered = new Dictionary<PackSO, bool>();
 
     private List<DeckSO> deckInv = new List<DeckSO>();
+
     private CardDatabaseSO cardDatabase;
     private PackDatabaseSO packDatabase;
     private DeckDatabaseSO deckDatabase;
 
-    private string savePath => Path.Combine(Application.persistentDataPath, "decks.json");
-
+    private string savePath => Path.Combine(Application.persistentDataPath, "inventory.json");
 
     public Inventory(CardDatabaseSO cardDatabase, PackDatabaseSO packDatabase, DeckDatabaseSO deckDatabase)
     {
@@ -25,6 +24,7 @@ public class Inventory
         this.packDatabase = packDatabase;
         this.deckDatabase = deckDatabase;
 
+        // initialize
         foreach (var card in cardDatabase.cards)
         {
             cardInv[card] = 0;
@@ -36,9 +36,10 @@ public class Inventory
             packDiscovered[pack] = false;
         }
 
-        LoadDecks();
+        LoadInventory();
     }
 
+    #region Card/Pack Methods
     public void AddCard(CardSO card)
     {
         if (cardInv[card] == 0 && !cardDiscovered[card])
@@ -47,19 +48,7 @@ public class Inventory
             Debug.Log($"Discovered {card.title}!");
         }
         cardInv[card]++;
-        Debug.Log($"Added {card.title} - {card.rarity.ToString()}. Count: {cardInv[card]}");
-    }
-
-    public void AddPack(PackSO pack)
-    {
-        if (packInv[pack] == 0 && !packDiscovered[pack])
-        {
-            packDiscovered[pack] = true;
-            Debug.Log($"Discovered {pack.title}!");
-
-        }
-        packInv[pack]++;
-        Debug.Log($"Added {pack.title}. Count: {packInv[pack]}");
+        SaveInventory();
     }
 
     public void RemoveCard(CardSO card)
@@ -70,7 +59,26 @@ public class Inventory
             return;
         }
         cardInv[card]--;
-        Debug.Log($"Removed {card.title}. Count: {cardInv[card]}");
+        SaveInventory();
+    }
+
+    public int GetCardCount(CardSO card) =>
+        cardInv.TryGetValue(card, out int count) ? count : 0;
+
+    public bool GetCardDiscovered(CardSO card) =>
+        cardDiscovered.TryGetValue(card, out bool discovered) ? discovered : false;
+
+    public IEnumerable<CardSO> GetAllCards() => cardInv.Keys;
+
+    public void AddPack(PackSO pack)
+    {
+        if (packInv[pack] == 0 && !packDiscovered[pack])
+        {
+            packDiscovered[pack] = true;
+            Debug.Log($"Discovered {pack.title}!");
+        }
+        packInv[pack]++;
+        SaveInventory();
     }
 
     public void RemovePack(PackSO pack)
@@ -81,85 +89,38 @@ public class Inventory
             return;
         }
         packInv[pack]--;
-        Debug.Log($"Removed {pack.title}. Count: {packInv[pack]}");
-
+        SaveInventory();
     }
 
-    public int GetCardCount(CardSO card)
-    {
-        return cardInv.TryGetValue(card, out int count) ? count : 0;
-    }
+    public int GetPackCount(PackSO pack) =>
+        packInv.TryGetValue(pack, out int count) ? count : 0;
 
-    public bool GetCardDiscovered(CardSO card)
-    {
-        return cardDiscovered.TryGetValue(card, out bool discovered) ? discovered : false;
-    }
+    public bool GetPackDiscovered(PackSO pack) =>
+        packDiscovered.TryGetValue(pack, out bool discovered) ? discovered : false;
 
-    public IEnumerable<CardSO> GetAllCards()
-    {
-        return cardInv.Keys;
-    }
+    public IEnumerable<PackSO> GetAllPacks() => packInv.Keys;
+    #endregion
 
-    public int GetPackCount(PackSO pack)
-    {
-        return packInv.TryGetValue(pack, out int count) ? count : 0;
-    }
+    #region Deck Methods
+    public IEnumerable<DeckSO> GetAllDecks() => deckInv;
 
-    public bool GetPackDiscovered(PackSO pack)
-    {
-        return packDiscovered.TryGetValue(pack, out bool discovered) ? discovered : false;
-    }
-
-    public IEnumerable<PackSO> GetAllPacks()
-    {
-        return packInv.Keys;
-    }
-
-    public IEnumerable<DeckSO> GetAllDecks()
-    {
-        return deckInv;
-    }
-    public int GetCardCountInDeck(DeckSO deck, CardSO card)
-    {
-        return deck.deckList.Count(c => c == card);
-    }
+    public int GetCardCountInDeck(DeckSO deck, CardSO card) =>
+        deck.deckList.Count(c => c == card);
 
     public void AddCardToDeck(DeckSO deck, CardSO card)
     {
-        // Check deck size
-        if (deck.deckList.Count >= deck.deckSize)
-        {
-            Debug.Log("Deck is max size");
-            return;
-        }
+        if (deck.deckList.Count >= deck.deckSize) { Debug.Log("Deck is max size"); return; }
+        if (GetCardCountInDeck(deck, card) >= deck.maxCopies) { Debug.Log("Max copies reached"); return; }
+        if (GetCardCountInDeck(deck, card) >= GetCardCount(card)) { Debug.Log("Not enough copies in inventory"); return; }
 
-        // Check max copies
-        int countInDeck = GetCardCountInDeck(deck, card);
-        if (countInDeck >= deck.maxCopies)
-        {
-            Debug.Log($"Max copies of {card.title} reached ({deck.maxCopies})");
-            return;
-        }
-
-        // Check inventory vs deck
-        int countInInventory = GetCardCount(card);
-        if (countInDeck >= countInInventory)
-        {
-            Debug.Log($"Not enough copies of {card.title} in inventory to add another.");
-            return;
-        }
-
-        // All checks passed, add card
         deck.deckList.Add(card);
-        SaveDecks();
-        Debug.Log($"Added {card.title} to {deck.title}. Deck count: {countInDeck + 1}, Inventory count: {countInInventory}");
+        SaveInventory();
     }
-
 
     public void RemoveCardFromDeck(DeckSO deck, CardSO card)
     {
         deck.deckList.Remove(card);
-        SaveDecks();
+        SaveInventory();
     }
 
     public DeckSO AddDeck()
@@ -169,10 +130,7 @@ public class Inventory
         newDeck.deckList = new List<CardSO>();
 
         deckInv.Add(newDeck);
-        SaveDecks();
-
-        Debug.Log($"Created deck {newDeck.title}");
-        //AddCardToDeck(newDeck, cardDatabase.cards[0]);
+        SaveInventory();
         return newDeck;
     }
 
@@ -181,59 +139,105 @@ public class Inventory
         if (deckInv.Contains(deck))
         {
             deckInv.Remove(deck);
-            SaveDecks();
+            SaveInventory();
         }
     }
+    #endregion
 
-    public void SaveDecks()
+    #region Save/Load
+    public void SaveInventory()
     {
-        List<DeckSaveData> saveData = new List<DeckSaveData>();
+        InventorySaveData saveData = new InventorySaveData();
 
+        // cards
+        foreach (var kvp in cardInv)
+        {
+            saveData.cards.Add(new CardSaveData
+            {
+                cardID = kvp.Key.guid,
+                count = kvp.Value,
+                discovered = cardDiscovered[kvp.Key]
+            });
+        }
+
+        // packs
+        foreach (var kvp in packInv)
+        {
+            saveData.packs.Add(new PackSaveData
+            {
+                packID = kvp.Key.guid,
+                count = kvp.Value,
+                discovered = packDiscovered[kvp.Key]
+            });
+        }
+
+        // decks
         foreach (var deck in deckInv)
         {
-            DeckSaveData data = new DeckSaveData();
-            data.title = deck.title;
-            data.cardIDs = deck.deckList.Select(card => card.guid).ToList();
-            saveData.Add(data);
+            DeckSaveData deckData = new DeckSaveData
+            {
+                title = deck.title,
+                cardIDs = deck.deckList.Select(c => c.guid).ToList()
+            };
+            saveData.decks.Add(deckData);
         }
 
-        DeckSaveDataWrapper wrapper = new DeckSaveDataWrapper { decks = saveData };
-        string json = JsonUtility.ToJson(wrapper, true);
+        string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(savePath, json);
-
-        Debug.Log($"Saved decks to {savePath}");
+        Debug.Log($"Saved inventory to {savePath}");
     }
 
-    public void LoadDecks()
+    public void LoadInventory()
     {
         deckInv.Clear();
 
         if (!File.Exists(savePath))
         {
-            // fallback: load default decks from database
+            // fallback: default decks
             deckInv = new List<DeckSO>(deckDatabase.decks);
-            Debug.Log("No save file found, loaded default decks.");
+            Debug.Log("No save found, starting fresh.");
             return;
         }
 
         string json = File.ReadAllText(savePath);
-        DeckSaveDataWrapper wrapper = JsonUtility.FromJson<DeckSaveDataWrapper>(json);
+        InventorySaveData saveData = JsonUtility.FromJson<InventorySaveData>(json);
 
-        foreach (var data in wrapper.decks)
+        // cards
+        foreach (var data in saveData.cards)
+        {
+            CardSO card = cardDatabase.cards.FirstOrDefault(c => c.guid == data.cardID);
+            if (card != null)
+            {
+                cardInv[card] = data.count;
+                cardDiscovered[card] = data.discovered;
+            }
+        }
+
+        // packs
+        foreach (var data in saveData.packs)
+        {
+            PackSO pack = packDatabase.packs.FirstOrDefault(p => p.guid == data.packID);
+            if (pack != null)
+            {
+                packInv[pack] = data.count;
+                packDiscovered[pack] = data.discovered;
+            }
+        }
+
+        // decks
+        foreach (var deckData in saveData.decks)
         {
             DeckSO deck = ScriptableObject.CreateInstance<DeckSO>();
-            deck.title = data.title;
-
-            foreach (string cardID in data.cardIDs)
+            deck.title = deckData.title;
+            foreach (string cardID in deckData.cardIDs)
             {
                 CardSO card = cardDatabase.cards.FirstOrDefault(c => c.guid == cardID);
-                if (card != null)
-                    deck.deckList.Add(card);
+                if (card != null) deck.deckList.Add(card);
             }
-
             deckInv.Add(deck);
         }
 
-        Debug.Log($"Loaded {deckInv.Count} decks from save file.");
+        Debug.Log($"Loaded inventory: {cardInv.Values.Sum()} cards, {packInv.Values.Sum()} packs, {deckInv.Count} decks");
     }
+    #endregion
 }

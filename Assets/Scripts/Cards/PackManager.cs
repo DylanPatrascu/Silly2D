@@ -40,7 +40,7 @@ public class PackManager : MonoBehaviour
         }
 
         // Rare/Mythic
-        for (int i = 0; i < pack.NumRare; i++)
+        for (int i = 0; i < pack.numRare; i++)
         {
             if (Random.value <= pack.mythicOdds)
             {

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f87695d8615b5c4fa542171e68981c5, type: 3}
   m_Name: StarterPack
   m_EditorClassIdentifier: 
+  guid: 66e611f4-b897-4ece-bf44-45754cd7a70f
   sprite: {fileID: 21300000, guid: 9a4e620ccfe5f2d43b53c6015360f4ca, type: 3}
   title: Starter Pack
   cards:
@@ -34,5 +35,5 @@ MonoBehaviour:
   numCards: 5
   numCommon: 3
   numUncommon: 1
-  NumRare: 1
+  numRare: 0
   mythicOdds: 0.05

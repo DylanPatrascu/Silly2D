@@ -150,6 +150,16 @@ public class PlayerStats : MonoBehaviour
         return runtimeDeck.Count;
     }
 
+    public DeckSO GetDeck()
+    {
+        return deck;
+    }
+
+    public void SetDeck(DeckSO activeDeck)
+    {
+        deck = activeDeck;
+    }
+
     // Fisher–Yates shuffle
     private string Shuffle<T>(List<T> list)
     {

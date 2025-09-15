@@ -27,6 +27,9 @@ public class DeckUIController : MonoBehaviour
 
     public GameObject cardPrefab;
     public GameObject decksPanel;
+    public PlayerStats player;
+
+    public TMP_Text cardCount;
 
     private void Awake()
     {
@@ -35,11 +38,17 @@ public class DeckUIController : MonoBehaviour
     private void Update()
     {
         removeButton.SetActive(selectedDeck != null && editMode != true);
+        if(selectedDeck != null)
+        {
+            cardCount.text = selectedDeck.deckList.Count + " - " + selectedDeck.deckSize;
+
+        }
     }
 
     public void DisplayDeck(DeckSO deck)
     {
         title.text = deck.title;
+        cardCount.text = deck.deckList.Count + " - " + deck.deckSize;
         Debug.Log("Entered Method");
         foreach (Transform child in decklistPanel.transform)
         {
@@ -78,6 +87,14 @@ public class DeckUIController : MonoBehaviour
         inventoryUI.DisplayInventory();
     }
 
+    public void SetActiveDeck()
+    {
+        if(selectedDeck.deckList.Count == selectedDeck.deckSize)
+        {
+            player.SetDeck(selectedDeck);
+        }
+    }
+
     public void EnableEditMode()
     {
         SetHeaderVisibility(false);
@@ -85,6 +102,7 @@ public class DeckUIController : MonoBehaviour
         editButton.SetActive(false);
         saveButton.SetActive(true);
         title.text = selectedDeck.title;
+        cardCount.text = selectedDeck.deckList.Count + " - " + selectedDeck.deckSize;
         Debug.Log("Entered Method");
         foreach (Transform child in decklistPanel.transform)
         {

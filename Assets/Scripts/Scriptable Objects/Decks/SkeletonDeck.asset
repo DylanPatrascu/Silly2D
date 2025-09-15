@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884672869152363449d3c9be80863d47, type: 3}
   m_Name: SkeletonDeck
   m_EditorClassIdentifier: 
+  guid: 40ab65bb-9ee0-45ad-9c8e-429e354e7337
   title: Skeleton Deck
   maxCopies: 2
-  deckSize: 30
+  deckSize: 20
   deckList:
   - {fileID: 11400000, guid: fa64662bc2401924d9066e0972d46ba5, type: 2}
   - {fileID: 11400000, guid: 6b854acad57662f48a03265f5cc83515, type: 2}

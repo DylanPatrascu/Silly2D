@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884672869152363449d3c9be80863d47, type: 3}
   m_Name: test
   m_EditorClassIdentifier: 
+  guid: f3023186-0220-4da0-8a5c-e59840e57439
   title: test deck
   maxCopies: 2
-  deckSize: 30
+  deckSize: 20
   deckList:
   - {fileID: 11400000, guid: 02ec62b9c01751942aebf4726666c321, type: 2}
   - {fileID: 11400000, guid: 30b0bc35b0934d94a8b54653240619c4, type: 2}
   - {fileID: 11400000, guid: f387e8564c3a81c4c851454b063c39fa, type: 2}
   - {fileID: 11400000, guid: 9b56c96abc06f114b8bf766f303d081b, type: 2}
   - {fileID: 11400000, guid: d4ba1ef4adad49f42b4237938f0d28c0, type: 2}
+  - {fileID: 11400000, guid: 203ffdd8ee272d6439f1ad18b6f3bcc9, type: 2}
+  - {fileID: 11400000, guid: e8eed173c8aabb346aecb054cb5a532f, type: 2}
