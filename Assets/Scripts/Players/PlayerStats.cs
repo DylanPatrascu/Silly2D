@@ -29,6 +29,10 @@ public class PlayerStats : MonoBehaviour
     }
 
 
+    public void SetHealth(int hp)
+    {
+        health = hp;
+    }
     public string TakeDamage(int amount, bool piercing)
     {
         int damage = piercing ? amount : Mathf.Max(amount - armor, 0);
@@ -49,7 +53,7 @@ public class PlayerStats : MonoBehaviour
     public string AddArmor(int amount)
     {
         armor += amount;
-        return $"{playerName} gained {armor}.";
+        return $"{playerName} gained {armor} armor.";
     }
 
     public void DrawCard(int num)

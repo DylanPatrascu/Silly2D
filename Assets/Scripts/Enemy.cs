@@ -11,7 +11,12 @@ public class Enemy : MonoBehaviour
     private bool playerInRange = false;
     private PlayerMovement nearbyPlayerMovement;
     private PlayerStats nearbyPlayerStats;
+
     public DialogueTree tree;
+    public DialogueTree drawDialogue;
+    public DialogueTree playerWinDialogue;
+    public DialogueTree playerLoseDialogue;
+
 
     private void Awake()
     {
@@ -27,6 +32,9 @@ public class Enemy : MonoBehaviour
             Debug.Log("Battle triggered by interact!");
 
             DialogueManager dialogueManager = FindAnyObjectByType<DialogueManager>();
+            
+            dialogueManager.OnDialogueEnd = null;
+
             dialogueManager.OnDialogueEnd = () =>
             {
                 battleController.StartBattle(nearbyPlayerStats, enemyStats);
@@ -34,9 +42,16 @@ public class Enemy : MonoBehaviour
 
             dialogueManager.StartDialogue(tree.nodes[0]);
         }
-
     }
 
+    public void EndBattleDraw()
+    {
+        DialogueManager dialogueManager = FindAnyObjectByType<DialogueManager>();
+
+        dialogueManager.OnDialogueEnd = null;
+
+        dialogueManager.StartDialogue(drawDialogue.nodes[0]);
+    }
     public void GiveRewards(PlayerStats player)
     {
         CardManager playerInventory = player.GetComponent<CardManager>();
@@ -52,7 +67,14 @@ public class Enemy : MonoBehaviour
         }
 
         Debug.Log("Enemy Defeated, Rewards granted");
+
         beaten = true;
+
+        DialogueManager dialogueManager = FindAnyObjectByType<DialogueManager>();
+
+        dialogueManager.OnDialogueEnd = null;
+
+        dialogueManager.StartDialogue(playerWinDialogue.nodes[0]);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -138,8 +138,13 @@ public class BattleController : MonoBehaviour
 
         if (playerDead && enemyDead)
         {
-            Debug.Log("Draw");
-            //player.die, or maybe make it so u clutch with 1hp
+            player.SetHealth(1);
+            battleUI.EndBattle();
+            player.EndBattle();
+
+            Enemy enemyScript = enemy.GetComponent<Enemy>();
+            enemyScript.EndBattleDraw();
+            battleState = BattleState.NoCombat;
         }
         else if (enemyDead)
         {
@@ -155,7 +160,8 @@ public class BattleController : MonoBehaviour
         {
             Debug.Log("Enemy Wins");
             battleState = BattleState.NoCombat;
-            //player.die
+            //open death screen
+            //
 
         }
         else
