@@ -5,23 +5,25 @@ public class Chest : MonoBehaviour
     public CardSO[] cardRewards;
     public PackSO[] packRewards;
     public bool canInteract;
-    public Sprite openedSprite;
     public bool opened = false;
 
     private CardManager cardManager;
     private Inventory inventory;
-    private SpriteRenderer spriteRenderer;
     private PlayerMovement nearbyPlayerMovement;
+    public Animator animator;
+    public Key requiredKey;
 
-    private void Start()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
 
     void Update()
     {
         if (opened || !canInteract || nearbyPlayerMovement == null)
             return;
+
+        if (requiredKey != null && !requiredKey.GetCollected())
+        {
+            Debug.Log("Chest is locked. You need a key!");
+            return;
+        }
 
         if (nearbyPlayerMovement.interact)
         {
@@ -29,7 +31,7 @@ public class Chest : MonoBehaviour
 
             Debug.Log("Chest Opened");
             ClaimRewards();
-            spriteRenderer.sprite = openedSprite;
+            animator.SetBool("Opened", true);
             opened = true;
         }
     }

@@ -24,7 +24,7 @@ public class Key : MonoBehaviour
             nearbyPlayerMovement.interact = false;
 
             Debug.Log("Key Collected");
-            spriteRenderer.sprite = null;
+            spriteRenderer.enabled = false;
             collected = true;
             collision.enabled = false;
         }

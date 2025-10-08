@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6343745983601227579}
   - component: {fileID: 7884615940648291392}
   - component: {fileID: 8700446402976101547}
+  - component: {fileID: 7574787762693504448}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 518071563, guid: dd5591f1c5a1dc74bbb42b3ee100f3a2, type: 3}
+  m_Sprite: {fileID: -174244684, guid: 586531cd438c8f843b80e3e3c291bbfe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -195,10 +196,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardRewards:
-  - {fileID: 11400000, guid: f387e8564c3a81c4c851454b063c39fa, type: 2}
+  - {fileID: 11400000, guid: fa64662bc2401924d9066e0972d46ba5, type: 2}
   packRewards:
   - {fileID: 11400000, guid: 3cd460c34c59c1648bc6c7387b83f87f, type: 2}
   canInteract: 0
-  openedSprite: {fileID: 803349861, guid: dd5591f1c5a1dc74bbb42b3ee100f3a2, type: 3}
-  cardManager: {fileID: 0}
   opened: 0
+  animator: {fileID: 7574787762693504448}
+  requiredKey: {fileID: 0}
+--- !u!95 &7574787762693504448
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303523624173302335}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5d6b0b52e30ca6b4b8b79c14fb88781a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

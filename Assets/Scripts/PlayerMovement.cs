@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float horizontalMovement;
     public float verticalMovement;
     public SpriteRenderer sprite;
+    public Animator animator;
 
     private float lastHorizontalDirection = 1f;
 
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public bool interact;
 
     public bool canMove = true;
+    public bool isDead = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,7 +40,11 @@ public class PlayerMovement : MonoBehaviour
             lastHorizontalDirection = horizontalMovement;
         }
         rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, verticalMovement * moveSpeed);
-        sprite.flipX = lastHorizontalDirection > 0;
+        sprite.flipX = lastHorizontalDirection < 0;
+
+        // Update animator Speed parameter
+        float currentSpeed = new Vector2(horizontalMovement, verticalMovement).magnitude;
+        animator.SetFloat("Speed", currentSpeed);
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -75,10 +81,14 @@ public class PlayerMovement : MonoBehaviour
         if (context.started)
         {
             interact = true;
+            animator.SetBool("IsInteracting", true);
+
         }
         else if (context.canceled)
         {
             interact = false;
+            animator.SetBool("IsInteracting", false);
+
         }
     }
 
@@ -87,11 +97,20 @@ public class PlayerMovement : MonoBehaviour
         canMove = false;
         horizontalMovement = 0;
         verticalMovement = 0;
+        animator.SetFloat("Speed", 0f);
     }
 
     public void EnableMovement()
     {
         canMove = true;
+    }
+
+    public void Die()
+    {
+        isDead = true;
+        canMove = false;
+        rb.linearVelocity = Vector2.zero;
+        animator.SetBool("IsDead", true);
     }
 
 
