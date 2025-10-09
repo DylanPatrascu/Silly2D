@@ -15,7 +15,7 @@ MonoBehaviour:
   guid: b218cbbf-9da8-44c0-b09b-15d68bd7e18b
   title: Wisdom
   description: Draw 2 cards
-  flavour: You can barely read 'Professor's Research' very faintly
+  flavour: You can barely read Professors Research very faintly
   sprite: {fileID: 21300000, guid: 83cd243cc6a22ab4298f3f1cd9e64cfb, type: 3}
   rarity: 2
   quickCast: 0
