@@ -56,7 +56,7 @@ public class PlayerStats : MonoBehaviour
         return $"{playerName} gained {armor} armor.";
     }
 
-    public void DrawCard(int num)
+    public string DrawCard(int num)
     {
         for(int i = 0; i < num; i++)
         {
@@ -68,7 +68,17 @@ public class PlayerStats : MonoBehaviour
             CardSO cardDrawn = runtimeDeck[0];
             runtimeDeck.RemoveAt(0);
             hand.Add(cardDrawn);
-            Debug.Log($"{playerName} drew {cardDrawn.title}");
+            
+        }
+        if (num == 1)
+        {
+            return $"{playerName} drew a card.";
+
+        }
+        else
+        {
+            return $"{playerName} drew {num} cards.";
+
         }
     }
 
