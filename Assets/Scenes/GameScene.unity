@@ -8799,7 +8799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13717,9 +13717,21 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4406485156455469849, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: drawDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: c0b089eda39128042ab0c66b605ad09b, type: 2}
+    - target: {fileID: 4406485156455469849, guid: 6b080ce2347b8c540866146b35522579, type: 3}
       propertyPath: battleController
       value: 
       objectReference: {fileID: 1007511313}
+    - target: {fileID: 4406485156455469849, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: playerWinDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 58b743a63ea4eed489bca19a10b02c66, type: 2}
+    - target: {fileID: 4406485156455469849, guid: 6b080ce2347b8c540866146b35522579, type: 3}
+      propertyPath: playerLoseDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 45a33c206f2663740be526f3f72abab1, type: 2}
     - target: {fileID: 7426430650623634192, guid: 6b080ce2347b8c540866146b35522579, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

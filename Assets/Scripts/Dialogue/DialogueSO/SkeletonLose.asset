@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7360e7e74de997c4a9f261ece5507d79, type: 3}
-  m_Name: Skeleton1
+  m_Name: SkeletonLose
   m_EditorClassIdentifier: 
   speakerName: Skeletony
-  portrait: {fileID: 1946843142, guid: dd5591f1c5a1dc74bbb42b3ee100f3a2, type: 3}
+  portrait: {fileID: -758902059, guid: 2f0adef44521ca940b2e94813bf3c7c2, type: 3}
   talkingClip: {fileID: 8300000, guid: 86f3599107fa03b41867c61af9717169, type: 3}
   sentences:
-  - Sans? You must be confusing me for someone else.
+  - I am going to harness your soul and turn you into a spell
